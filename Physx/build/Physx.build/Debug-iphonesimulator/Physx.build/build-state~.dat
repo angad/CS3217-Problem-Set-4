@@ -1,0 +1,337 @@
+TPhysx
+v7
+r0
+t318707707.729887
+cCheck dependencies
+cProcessInfoPlistFile /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/Info.plist Physx-Info.plist
+cCompileXIB /Users/angadsg/Documents/Physx/MainWindow.xib
+cCompileXIB /Users/angadsg/Documents/Physx/PhysxViewController.xib
+cProcessPCH /var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch.gch Physx_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/main.o /Users/angadsg/Documents/Physx/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxAppDelegate.o /Users/angadsg/Documents/Physx/Classes/PhysxAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxViewController.o /Users/angadsg/Documents/Physx/Classes/PhysxViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/ObjectModel.o /Users/angadsg/Documents/Physx/Classes/ObjectModel.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Matrix2D.o /Users/angadsg/Documents/Physx/Classes/Matrix2D.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Vector2D.o /Users/angadsg/Documents/Physx/Classes/Vector2D.m normal i386 objective-c com.apple.compilers.gcc.4_2
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk
+c000000004CC128950000000000000110
+t1287727253
+s272
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c000000004CC12246000000000029B310
+t1287725638
+s2732816
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004CC1226D000000000029D5D0
+t1287725677
+s2741712
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
+c000000004CC1225F0000000000001466
+t1287725663
+s5222
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
+c000000004CC1281F0000000000000AA1
+t1287727135
+s2721
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c000000004CC12883000000000074D7B0
+t1287727235
+s7657392
+
+N/Users/angadsg/Documents/Physx/Classes/Matrix2D.h
+c000000004D47A660000000000000081E
+t1296541280
+s2078
+i<Foundation/Foundation.h>
+i"Vector2D.h"
+
+N/Users/angadsg/Documents/Physx/Classes/Matrix2D.m
+c000000004D47AE140000000000000E9D
+t1296543252
+s3741
+i"Matrix2D.h"
+
+N/Users/angadsg/Documents/Physx/Classes/ObjectModel.h
+c000000004D4EDFDA00000000000001C7
+t1297014746
+s455
+i<Foundation/Foundation.h>
+i"Vector2D.h"
+i"Matrix2D.h"
+
+N/Users/angadsg/Documents/Physx/Classes/ObjectModel.m
+c000000004D4EDFB4000000000000015F
+t1297014708
+s351
+i"ObjectModel.h"
+
+N/Users/angadsg/Documents/Physx/Classes/PhysxAppDelegate.h
+c000000004D4D3A8400000000000001C3
+t1296906884
+s451
+i<UIKit/UIKit.h>
+
+N/Users/angadsg/Documents/Physx/Classes/PhysxAppDelegate.m
+c000000004D4D3914000000000000079A
+t1296906516
+s1946
+i"PhysxAppDelegate.h"
+i"PhysxViewController.h"
+
+N/Users/angadsg/Documents/Physx/Classes/PhysxViewController.h
+c000000004D4D391400000000000000D8
+t1296906516
+s216
+i<UIKit/UIKit.h>
+
+N/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m
+c000000004D4EE0770000000000000636
+t1297014903
+s1590
+i"PhysxViewController.h"
+
+N/Users/angadsg/Documents/Physx/Classes/Vector2D.h
+c000000004D47A80A0000000000000649
+t1296541706
+s1609
+i<Foundation/Foundation.h>
+
+N/Users/angadsg/Documents/Physx/Classes/Vector2D.m
+c000000004D47A8140000000000000902
+t1296541716
+s2306
+i"Vector2D.h"
+
+N/Users/angadsg/Documents/Physx/MainWindow.xib
+c000000004D4D39140000000000004CF5
+t1296906516
+s19701
+
+N/Users/angadsg/Documents/Physx/PhysxViewController.xib
+c000000004D4D39140000000000003ED9
+t1296906516
+s16089
+
+N/Users/angadsg/Documents/Physx/Physx_Prefix.pch
+c000000004D4D391400000000000000B3
+t1296906516
+s179
+i<Foundation/Foundation.h>
+i<UIKit/UIKit.h>
+
+N/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app
+t2
+s0
+
+N/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app.dSYM
+t2
+s0
+
+N/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/Info.plist
+t1297014905
+s785
+
+N/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/MainWindow.nib
+t1297014906
+s1119
+
+N/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/Physx
+t2
+s0
+
+N/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/PhysxViewController.nib
+t1297014906
+s764
+
+N/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/PkgInfo
+t1297014905
+s8
+
+N/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Matrix2D.o
+t1297014907
+s19168
+
+N/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/ObjectModel.o
+t2
+s0
+
+N/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Physx.LinkFileList
+c000000004D4EE07900000000000002BE
+t1297014905
+s702
+
+N/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxAppDelegate.o
+t1297014907
+s49972
+
+N/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxViewController.o
+t2
+s0
+
+N/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Vector2D.o
+t1297014907
+s14540
+
+N/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/main.o
+t1297014907
+s6288
+
+N/Users/angadsg/Documents/Physx/main.m
+c000000004D4D39140000000000000157
+t1296906516
+s343
+i<UIKit/UIKit.h>
+
+N/var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch.gch
+t1297014907
+s15453392
+
+NPhysx-Info.plist
+c000000004D4D4D5300000000000004A5
+t1296911699
+s1189
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies318707705#318707705#0(0"0(0#1#0"3343187568374212096#0"0#
+
+CCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Matrix2D.o /Users/angadsg/Documents/Physx/Classes/Matrix2D.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s318707707.596719
+e318707707.707227
+r1
+xCompileC
+xbuild/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Matrix2D.o
+x/Users/angadsg/Documents/Physx/Classes/Matrix2D.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@57"Compile /Users/angadsg/Documents/Physx/Classes/Matrix2D.m318707707#318707707#0(0"0(0#0#49"/Users/angadsg/Documents/Physx/Classes/Matrix2D.m8610640960#1802"    cd /Users/angadsg/Documents/Physx    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-generated-files.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-own-target-headers.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-all-target-headers.hmap -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-project-headers.hmap -F/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator -I/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/include -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources/i386 -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources -include /var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch -c /Users/angadsg/Documents/Physx/Classes/Matrix2D.m -o /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Matrix2D.o0#
+
+CCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/ObjectModel.o /Users/angadsg/Documents/Physx/Classes/ObjectModel.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s318707707.583069
+e318707707.640276
+r0
+xCompileC
+xbuild/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/ObjectModel.o
+x/Users/angadsg/Documents/Physx/Classes/ObjectModel.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+o/Users/angadsg/Documents/Physx/Classes/ObjectModel.m: In function '-[ObjectModel timeStep]':
+o/Users/angadsg/Documents/Physx/Classes/ObjectModel.m:19: error: incompatible types in initialization
+o/Users/angadsg/Documents/Physx/Classes/ObjectModel.m:19: warning: unused variable 'orientation'
+lSLF07#2@60"Compile /Users/angadsg/Documents/Physx/Classes/ObjectModel.m318707707#318707707#0(290"/Users/angadsg/Documents/Physx/Classes/ObjectModel.m: In function '-[ObjectModel timeStep]':/Users/angadsg/Documents/Physx/Classes/ObjectModel.m:19: error: incompatible types in initialization/Users/angadsg/Documents/Physx/Classes/ObjectModel.m:19: warning: unused variable 'orientation'2(4@36"Incompatible types in initialization318707707#93#101#0(6@52"/Users/angadsg/Documents/Physx/Classes/ObjectModel.m318707508#19#0#19#0#0"0(22@29"Unused variable 'orientation'318707707#194#96#0(6@52"/Users/angadsg/Documents/Physx/Classes/ObjectModel.m318707508#19#0#19#0#19"unused variable '*'0(0#0#52"/Users/angadsg/Documents/Physx/Classes/ObjectModel.m8611161408#1808"    cd /Users/angadsg/Documents/Physx    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-generated-files.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-own-target-headers.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-all-target-headers.hmap -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-project-headers.hmap -F/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator -I/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/include -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources/i386 -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources -include /var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch -c /Users/angadsg/Documents/Physx/Classes/ObjectModel.m -o /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/ObjectModel.o1#
+
+CCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxAppDelegate.o /Users/angadsg/Documents/Physx/Classes/PhysxAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s318707707.374524
+e318707707.582959
+r1
+xCompileC
+xbuild/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxAppDelegate.o
+x/Users/angadsg/Documents/Physx/Classes/PhysxAppDelegate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@65"Compile /Users/angadsg/Documents/Physx/Classes/PhysxAppDelegate.m318707707#318707707#0(0"0(0#0#57"/Users/angadsg/Documents/Physx/Classes/PhysxAppDelegate.m8611098752#1818"    cd /Users/angadsg/Documents/Physx    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-generated-files.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-own-target-headers.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-all-target-headers.hmap -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-project-headers.hmap -F/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator -I/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/include -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources/i386 -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources -include /var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch -c /Users/angadsg/Documents/Physx/Classes/PhysxAppDelegate.m -o /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxAppDelegate.o0#
+
+CCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxViewController.o /Users/angadsg/Documents/Physx/Classes/PhysxViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s318707707.538255
+e318707707.596622
+r0
+xCompileC
+xbuild/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxViewController.o
+x/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+o/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m: In function '-[PhysxViewController viewDidLoad]':
+o/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:37: error: incompatible types in initialization
+o/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:40: error: 'ctx' undeclared (first use in this function)
+o/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:40: error: (Each undeclared identifier is reported only once
+o/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:40: error: for each function it appears in.)
+o/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:37: warning: unused variable 'orientation'
+lSLF07#2@68"Compile /Users/angadsg/Documents/Physx/Classes/PhysxViewController.m318707707#318707707#0(671"/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m: In function '-[PhysxViewController viewDidLoad]':/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:37: error: incompatible types in initialization/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:40: error: 'ctx' undeclared (first use in this function)/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:40: error: (Each undeclared identifier is reported only once/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:40: error: for each function it appears in.)/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m:37: warning: unused variable 'orientation'3(4@36"Incompatible types in initialization318707707#112#109#0(6@60"/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m318707703#37#0#37#0#0"0(4@45"'ctx' undeclared (first use in this function)318707707#221#118#0(6@60"/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m318707703#40#0#40#0#43"'*' undeclared (first use in this function)0(22@29"Unused variable 'orientation'318707707#567#104#0(6@60"/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m318707703#37#0#37#0#19"unused variable '*'0(0#0#60"/Users/angadsg/Documents/Physx/Classes/PhysxViewController.m8611448992#1824"    cd /Users/angadsg/Documents/Physx    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-generated-files.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-own-target-headers.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-all-target-headers.hmap -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-project-headers.hmap -F/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator -I/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/include -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources/i386 -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources -include /var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch -c /Users/angadsg/Documents/Physx/Classes/PhysxViewController.m -o /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/PhysxViewController.o1#
+
+CCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Vector2D.o /Users/angadsg/Documents/Physx/Classes/Vector2D.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s318707707.640375
+e318707707.729800
+r1
+xCompileC
+xbuild/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Vector2D.o
+x/Users/angadsg/Documents/Physx/Classes/Vector2D.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@57"Compile /Users/angadsg/Documents/Physx/Classes/Vector2D.m318707707#318707707#0(0"0(0#0#49"/Users/angadsg/Documents/Physx/Classes/Vector2D.m8610355328#1802"    cd /Users/angadsg/Documents/Physx    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-generated-files.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-own-target-headers.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-all-target-headers.hmap -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-project-headers.hmap -F/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator -I/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/include -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources/i386 -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources -include /var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch -c /Users/angadsg/Documents/Physx/Classes/Vector2D.m -o /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/Vector2D.o0#
+
+CCompileC build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/main.o /Users/angadsg/Documents/Physx/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s318707707.373154
+e318707707.538149
+r1
+xCompileC
+xbuild/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/main.o
+x/Users/angadsg/Documents/Physx/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@45"Compile /Users/angadsg/Documents/Physx/main.m318707707#318707707#0(0"0(0#0#37"/Users/angadsg/Documents/Physx/main.m8611184800#1786"    cd /Users/angadsg/Documents/Physx    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-generated-files.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-own-target-headers.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-all-target-headers.hmap -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-project-headers.hmap -F/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator -I/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/include -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources/i386 -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources -include /var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch -c /Users/angadsg/Documents/Physx/main.m -o /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Objects-normal/i386/main.o0#
+
+CCompileXIB /Users/angadsg/Documents/Physx/MainWindow.xib
+s318707705.886573
+e318707706.349578
+r1
+xCompileXIB
+x/Users/angadsg/Documents/Physx/MainWindow.xib
+lSLF07#2@25"CompileXIB MainWindow.xib318707705#318707706#0(0"0(0#0#45"/Users/angadsg/Documents/Physx/MainWindow.xib8611663008#544"    cd /Users/angadsg/Documents/Physx    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/MainWindow.nib /Users/angadsg/Documents/Physx/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk0#
+
+CCompileXIB /Users/angadsg/Documents/Physx/PhysxViewController.xib
+s318707705.888119
+e318707706.349728
+r1
+xCompileXIB
+x/Users/angadsg/Documents/Physx/PhysxViewController.xib
+lSLF07#2@34"CompileXIB PhysxViewController.xib318707705#318707706#0(0"0(0#0#54"/Users/angadsg/Documents/Physx/PhysxViewController.xib8611341440#562"    cd /Users/angadsg/Documents/Physx    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/PhysxViewController.nib /Users/angadsg/Documents/Physx/PhysxViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk0#
+
+CGenerateDSYMFile /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app.dSYM /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/Physx
+r0
+
+CLd /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/Physx normal i386
+r0
+
+CProcessInfoPlistFile /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/Info.plist Physx-Info.plist
+s318707705.838175
+e318707705.886465
+r1
+xProcessInfoPlistFile
+x/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/Info.plist
+xPhysx-Info.plist
+lSLF07#2@24"Process Physx-Info.plist318707705#318707705#0(0"0(0#0#47"/Users/angadsg/Documents/Physx/Physx-Info.plist27303536605069420#449"    cd /Users/angadsg/Documents/Physx    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility Physx-Info.plist -genpkginfo /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app/Info.plist0#
+
+CProcessPCH /var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch.gch Physx_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
+s318707706.349857
+e318707707.372890
+r1
+xProcessPCH
+x/var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch.gch
+xPhysx_Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@27"Precompile Physx_Prefix.pch318707706#318707707#0(0"0(0#0#47"/Users/angadsg/Documents/Physx/Physx_Prefix.pch8610237184#1688"    cd /Users/angadsg/Documents/Physx    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-generated-files.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-own-target-headers.hmap -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-all-target-headers.hmap -iquote /Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/Physx-project-headers.hmap -F/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator -I/Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/include -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources/i386 -I/Users/angadsg/Documents/Physx/build/Physx.build/Debug-iphonesimulator/Physx.build/DerivedSources -c /Users/angadsg/Documents/Physx/Physx_Prefix.pch -o /var/folders/Q+/Q+mkI6KAEhG-hB6E-OdfB++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Physx_Prefix-fpneuasoyjfqvwcfofxuhboxscdv/Physx_Prefix.pch.gch0#
+
+CTouch /Users/angadsg/Documents/Physx/build/Debug-iphonesimulator/Physx.app
+r0
+
