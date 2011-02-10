@@ -14,22 +14,21 @@
 //the view updates here
 - (void)accelerometer:(UIAccelerometer *)acel didAccelerate:(UIAcceleration *)aceler 
 {
-	//NSLog(@"%f, %f, %f", aceler.x, aceler.y, aceler.z);
 	gravity = [[Vector2D alloc] initWith:aceler.x y:-aceler.y];
-	//NSLog(@"gravity %f, %f", [gravity x], [gravity y]);
 
+	allObjects = [[NSArray arrayWithObjects:redRect,greenRect,blueRect, yellowRect, purpleRect, pinkRect, nil] retain];
+	walls = [[NSArray arrayWithObjects:topRect, rightRect, bottomRect, leftRect, nil]retain];
 	int i,j;
-	for (i=0; i<6; i++) {
-		[[allObjects objectAtIndex:i] applyForce:[[Vector2D alloc] initWith:0.0 y:0.0] Gravity:gravity];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"moveObject" object:[allObjects objectAtIndex:i]];
+	for (i=1; i<6; i++) {
 		for (j=0; j<4; j++) {
-			[[walls objectAtIndex:j]colliding:[allObjects objectAtIndex:i]];
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"moveObject" object:[allObjects objectAtIndex:i]];
-
+			//[[walls objectAtIndex:j]colliding:[allObjects objectAtIndex:i]:gravity];
 		}
+		
+		ObjectModel *temp = [allObjects objectAtIndex:i];
+		[temp applyForce:[[Vector2D alloc] initWith:0.0 y:0.0] Gravity:gravity];
+		NSLog(@"%f, %f obj type %i", [[temp position] x], [[temp position] y], [temp objType]);
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"moveObject" object:temp];
 	}
-	//[blueRect colliding:redRect];
-
 }
 
 -(id)initWithViewController:(PhysxViewController*)vc{
@@ -41,7 +40,7 @@
                                                  name:@"moveObject"
                                                object:nil];
 	
-	top = [[ObjectModel alloc]initWithType:infinite 
+	topRect = [[[ObjectModel alloc]initWithType:top 
 										Mass:100.0 
 							 MomentOfInertia:0.0 
 									Position:[[Vector2D alloc] initWith:5.0 y:5.0]
@@ -49,9 +48,9 @@
 									Height:10 
 								  Velocity:[[Vector2D alloc]initWith:0.0 y:0.0]
 						   AngularVelocity:[[Matrix2D alloc]initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0]
-																		   :[[Vector2D alloc]initWith:0.0 y:0.0]]];
+																		   :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
 		   
-	right = [[ObjectModel alloc]initWithType:infinite 
+	rightRect = [[[ObjectModel alloc]initWithType:right 
 									  Mass:100.0 
 						   MomentOfInertia:0.0 
 								  Position:[[Vector2D alloc] initWith:750.0 y:5.0]
@@ -59,9 +58,9 @@
 									Height:990 
 								  Velocity:[[Vector2D alloc]initWith:0.0 y:0.0]
 						   AngularVelocity:[[Matrix2D alloc]initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0]
-																		   :[[Vector2D alloc]initWith:0.0 y:0.0]]];
+																		   :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
 				  
-	bottom = [[ObjectModel alloc]initWithType:infinite 
+	bottomRect = [[[ObjectModel alloc]initWithType:bottom 
 									  Mass:100.0 
 						   MomentOfInertia:0.0 
 								  Position:[[Vector2D alloc] initWith:5.0 y:990]
@@ -69,9 +68,9 @@
 									Height:10 
 								  Velocity:[[Vector2D alloc]initWith:0.0 y:0.0]
 						   AngularVelocity:[[Matrix2D alloc]initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0]
-																		   :[[Vector2D alloc]initWith:0.0 y:0.0]]];
+																		   :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
 	
-	left = [[ObjectModel alloc]initWithType:infinite 
+	leftRect = [[[ObjectModel alloc]initWithType:left 
 									  Mass:100.0 
 						   MomentOfInertia:0.0 
 								  Position:[[Vector2D alloc] initWith:5.0 y:5.0]
@@ -79,11 +78,11 @@
 									Height:750 
 								  Velocity:[[Vector2D alloc]initWith:0.0 y:0.0]
 						   AngularVelocity:[[Matrix2D alloc]initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0]
-																		   :[[Vector2D alloc]initWith:0.0 y:0.0]]];
+																		   :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
 	
 	
 	
-	redRect = [[ObjectModel alloc] initWithType:red
+	redRect = [[[ObjectModel alloc] initWithType:red
 										   Mass:2.0 
 								MomentOfInertia:0.0 
 									   Position:[[Vector2D alloc] initWith:80.0 y:40.0 ] 
@@ -91,10 +90,10 @@
 										 Height:80.0 
 									   Velocity:[[Vector2D alloc]initWith:0.0 y:0.0] 
 								AngularVelocity:[[Matrix2D alloc] initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0] 
-																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]];
+																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
 
 	
-	greenRect = [[ObjectModel alloc] initWithType:green
+	greenRect = [[[ObjectModel alloc] initWithType:green
 											 Mass:2.0
 								MomentOfInertia:0.0
 									   Position:[[Vector2D alloc] initWith:100.0 y:100.0 ] 
@@ -102,9 +101,9 @@
 										 Height:80.0 
 									   Velocity:[[Vector2D alloc]initWith:0.0 y:0.0] 
 								AngularVelocity:[[Matrix2D alloc] initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0] 
-																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]];
+																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
 	
-	blueRect = [[ObjectModel alloc]initWithType:blue
+	blueRect = [[[ObjectModel alloc]initWithType:blue
 										   Mass:2.0 
 								MomentOfInertia:2.0 
 									   Position:[[Vector2D alloc] initWith:140.0 y:200.0 ] 
@@ -112,9 +111,9 @@
 											Height:80.0 
 									   Velocity:[[Vector2D alloc]initWith:0.0 y:0.0] 
 								AngularVelocity:[[Matrix2D alloc] initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0] 
-																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]];
+																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
 	
-	yellowRect = [[ObjectModel alloc]initWithType:yellow
+	yellowRect = [[[ObjectModel alloc]initWithType:yellow
 											 Mass:2.0
 								MomentOfInertia:0.0
 									   Position:[[Vector2D alloc] initWith:240.0 y:300.0 ] 
@@ -122,8 +121,8 @@
 										  Height:80.0 
 									   Velocity:[[Vector2D alloc]initWith:0.0 y:0.0] 
 								AngularVelocity:[[Matrix2D alloc] initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0] 
-																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]];
-	purpleRect = [[ObjectModel alloc] initWithType:purple
+																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
+	purpleRect = [[[ObjectModel alloc] initWithType:purple
 											  Mass:2.0
 								MomentOfInertia:0.0
 									   Position:[[Vector2D alloc] initWith:200.0 y:500.0 ] 
@@ -131,8 +130,8 @@
 										 Height:80.0
 									   Velocity:[[Vector2D alloc]initWith:0.0 y:0.0] 
 								AngularVelocity:[[Matrix2D alloc] initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0] 
-																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]];
-	pinkRect = [[ObjectModel alloc]initWithType:pink
+																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
+	pinkRect = [[[ObjectModel alloc]initWithType:pink
 										   Mass:2.0 
 								MomentOfInertia:0.0
 									   Position:[[Vector2D alloc] initWith:300.0 y:700.0 ] 
@@ -140,9 +139,8 @@
 										 Height:80.0
 									   Velocity:[[Vector2D alloc]initWith:0.0 y:0.0] 
 								AngularVelocity:[[Matrix2D alloc] initWithVectors:[[Vector2D alloc]initWith:0.0 y:0.0] 
-																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]];
-	allObjects = [[NSArray arrayWithObjects:redRect, yellowRect, blueRect, greenRect, pinkRect, purpleRect, pinkRect, nil] retain];
-	walls = [[NSArray arrayWithObjects:top, left, right, bottom, nil]retain];
+																				 :[[Vector2D alloc]initWith:0.0 y:0.0]]]retain];
+	
 	
 	return self;
 	

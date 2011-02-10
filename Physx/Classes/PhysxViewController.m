@@ -74,7 +74,7 @@
 	[frameview addSubview:purple];
 	
 	frame = CGRectMake(300, 700, 40, 80);
-	pink = [[UIView alloc] initWithFrame:frame];
+	pink = [[[UIView alloc] initWithFrame:frame] retain];
 	pink.backgroundColor = [UIColor magentaColor];
 	[frameview addSubview:pink];
 	
@@ -120,6 +120,7 @@
 //	NSLog(@"%i", [t objType]);
 //	if ([[notification name] isEqualToString:@"moveObject"])
 // NSLog (@"Successfully received the test notification!");
+	NSLog(@"Received. %i %f %f", [t objType], [[t position] x], [[t position] y]);
 	
 	switch ([t objType]) {
 		case 1:
@@ -129,6 +130,7 @@
 		case 2:
 			//green
 			[green setCenter:CGPointMake([[t position] x], [[t position] y])];
+			NSLog(@"comeon");
 			break;
 		case 3:
 			//blue

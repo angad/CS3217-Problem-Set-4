@@ -22,10 +22,10 @@
 	ObjectModel *pinkRect;
 	ObjectModel *blueRect;
 	ObjectModel *purpleRect;
-	ObjectModel *right;
-	ObjectModel *left;
-	ObjectModel *top;
-	ObjectModel *bottom;
+	ObjectModel *rightRect;
+	ObjectModel *leftRect;
+	ObjectModel *topRect;
+	ObjectModel *bottomRect;
 	
 	NSArray *allObjects;
 	NSArray *walls;

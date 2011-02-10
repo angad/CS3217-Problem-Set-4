@@ -23,7 +23,11 @@ typedef enum
 	yellow = 4,
 	purple = 5,
 	pink = 6,
-	infinite = 7
+	top = 7,
+	right = 8,
+	bottom = 9,
+	left = 10,
+
 } ObjectType;
 
 

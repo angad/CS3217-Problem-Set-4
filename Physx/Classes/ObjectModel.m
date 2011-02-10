@@ -73,10 +73,16 @@
 	[self setAngularVelocity:[angularVelocity add:[[t multiplyScalar:(1/momentOfInertia)]multiplyScalar:(0.016)]]];
 }
 
--(BOOL)colliding:(ObjectModel*)shape{
+-(BOOL)colliding:(ObjectModel*)shape:(Vector2D*)g{
 	
 	//shape = a
 	//self = b
+	
+	[shape applyForce:[Vector2D vectorWith:0.0 y:0.0] Gravity:g];
+	[self applyForce:[Vector2D vectorWith:0.0 y:0.0] Gravity:g];
+
+	//NSLog(@"%f, %f", [velocity x], [velocity y]);
+
 	
 	Vector2D *ha;
 	Vector2D *hb;
@@ -115,7 +121,7 @@
 	
 	int i,j,pos;
 	double small;
-	
+
 	for (i=0; i<4; i++) {
 		if ([[ij objectAtIndex:i] doubleValue] > 0) {
 			NSLog(@"%i and %i Not Colliding", [self objType], [shape objType]);
@@ -294,6 +300,13 @@
 		v2c = [v1 add: [[v2 subtract:v1] multiply:(dist1/(dist1-dist2))]];
 		NSLog(@"%i and %i colliding2", [self objType], [shape objType]);
 	}
+	
+	if (dist1 > 0 && dist2 < 0) {
+		v1c = v2;
+		v2c = [v1 add: [[v2 subtract:v1] multiply:(dist1/(dist1-dist2))]];
+		NSLog(@"%i and %i colliding3", [self objType], [shape objType]);
+
+	}
 
 	if (dist1 > 0 && dist2 > 0) {
 		//the rectangles do not collide WTF!
@@ -301,7 +314,7 @@
 		NSLog(@"%i and %i Not Colliding", [self objType], [shape objType]);
 		return false;
 	}
-	/*
+	
 	//Second Clipping
 	Vector2D *v1cc, *v2cc;
 	
@@ -311,17 +324,26 @@
 	if (dist1 < 0 && dist2 < 0) {
 		v1cc = v1c;
 		v2cc = v2c;
+		NSLog(@"%i and %i colliding4", [self objType], [shape objType]);
+
 	}
 	
 	if (dist1 < 0 && dist2 > 0) {
 		v1cc = v1c;
 		v2cc = [v1c add: [[v2c subtract:v1c] multiply:(dist1/(dist1-dist2))]];
+		NSLog(@"%i and %i colliding5", [self objType], [shape objType]);
+	}
+	
+	if (dist1 > 0 && dist2 < 0) {
+		v1cc = v2c;
+		v2cc = [v1c add: [[v2c subtract:v1c] multiply:(dist1/(dist1-dist2))]];
+		NSLog(@"%i and %i colliding6", [self objType], [shape objType]);
 	}
 	
 	if (dist1 > 0 && dist2 > 0) {
 		//the rectangles do not collide WTF!
 		//exit the function
-		NSLog(@"Not colliding");
+		NSLog(@"%i and %i Not colliding2", [self objType], [shape objType]);
 		return false;
 	}
 	
@@ -335,11 +357,9 @@
 	
 	separation = [nf dot:v2cc] - df;
 	c2 = [v2cc subtract:[nf multiply:separation]];
-	*/
+	
 	 [self setVelocity:[Vector2D vectorWith:0.0 y:0.0]];
 	 [shape setVelocity:[Vector2D vectorWith:0.0 y:0.0]];
-
-	 
 	
 	return true;
 	 
