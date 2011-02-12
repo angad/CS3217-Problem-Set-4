@@ -37,15 +37,17 @@ typedef enum
 @property (readonly) double width;
 @property (readonly) double height;
 @property (readonly) Vector2D *velocity;
-@property (readonly) Matrix2D *angularVelocity;
+@property (readonly) double angularVelocity;
 @property (readonly) ObjectType objType;
 @property (readonly) double rotation;
 @property (readonly) Matrix2D *rotationM;
 @property (readonly) CGPoint center;
 @property (readonly) Vector2D *grav;
+@property (readonly) BOOL collided;
+//friction
 
-
--(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Position:(Vector2D *)p Width:(double)w Height:(double)h Velocity:(Vector2D *)v AngularVelocity:(Matrix2D *)av;
+-(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Position:(Vector2D *)p Width:(double)w Height:(double)h Velocity:(Vector2D *)v AngularVelocity:(double)av;
 -(void)applyForce:(Vector2D *)f Gravity:(Vector2D *)g;
-
+-(BOOL)colliding:(ObjectModel *)shape :(Vector2D *)g;
+-(void)applyImpulse:(ObjectModel *)shape :(Vector2D *)contact :(Vector2D *)normal :(double)separation;
 @end

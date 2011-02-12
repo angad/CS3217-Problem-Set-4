@@ -45,10 +45,10 @@
 	//Accelerometer
 	UIAccelerometer *accel = [UIAccelerometer sharedAccelerometer];
 	accel.delegate = ts;
-	accel.updateInterval = 1.0f/60.0f;
+	accel.updateInterval = 3.0f/60.0f;
 	
 	//Drawing rectangles
-	CGRect frame = CGRectMake(80, 40, 100, 20);
+	CGRect frame = CGRectMake(300, 100, 40, 80);
 	red = [[UIView alloc] initWithFrame:frame];
 	red.backgroundColor = [UIColor redColor];
 	[frameview addSubview:red];
@@ -74,7 +74,7 @@
 	[frameview addSubview:purple];
 	
 	frame = CGRectMake(300, 700, 40, 80);
-	pink = [[[UIView alloc] initWithFrame:frame] retain];
+	pink = [[UIView alloc] initWithFrame:frame];
 	pink.backgroundColor = [UIColor magentaColor];
 	[frameview addSubview:pink];
 	
@@ -98,65 +98,63 @@
 	left = [[UIView alloc] initWithFrame:frame];
 	left.backgroundColor = [UIColor blackColor];
 	[frameview addSubview:left];
+	
+	[yellow release];
+	[red release];
+	[blue release];
+	[green release];
+	[purple release];
+	[pink release];
+	[right release];
+	[bottom release];
+	[left release];
+	[top release];
 }
 
-/*
- 
- This is for checking orientation (without accelerometer).
-	
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
-	
-	NSLog(@"rotated");
-	
-//	NSLog(@"%@", fromInterfaceOrientation);
-	
-}
- */
 
 - (void) move:(NSNotification *) notification
 {
 	ObjectModel *t = [notification object];
-//	NSLog(@"%f", [[t position] x]);
-//	NSLog(@"%i", [t objType]);
-//	if ([[notification name] isEqualToString:@"moveObject"])
-// NSLog (@"Successfully received the test notification!");
-	NSLog(@"Received. %i %f %f", [t objType], [[t position] x], [[t position] y]);
-	
+	CGAffineTransform transform = CGAffineTransformMakeRotation([t rotation]*(3.14159/180));
 	switch ([t objType]) {
 		case 1:
 			//red
-			[red setCenter:CGPointMake([[t position] x], [[t position] y])];
+			[red setCenter:CGPointMake([[t position] x], [[t position] y]) ];
+			[red setTransform:transform];
 			break;
 		case 2:
 			//green
 			[green setCenter:CGPointMake([[t position] x], [[t position] y])];
-			NSLog(@"comeon");
+			[green setTransform:transform];
 			break;
 		case 3:
 			//blue
 			[blue setCenter:CGPointMake([[t position] x], [[t position] y])];
+			[blue setTransform:transform];
 
 			break;
 		case 4:
 			//yellow
 			[yellow setCenter:CGPointMake([[t position] x], [[t position] y])];
+			[yellow setTransform:transform];
 
 			break;
 		case 5:
 			//purple
 			[purple setCenter:CGPointMake([[t position] x], [[t position] y])];
+			[purple setTransform:transform];
 
 			break;
 		case 6:
 			//pink
 			[pink setCenter:CGPointMake([[t position] x], [[t position] y])];
-
+			[pink setTransform:transform];
 			break;
 		default:
 			break;
 	}
+	[t release];
 }
-
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -178,6 +176,7 @@
 
 - (void)dealloc {
     [super dealloc];
+	[frameview release];
 }
 
 @end

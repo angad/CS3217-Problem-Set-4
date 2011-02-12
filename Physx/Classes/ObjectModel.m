@@ -11,15 +11,13 @@
 
 @implementation ObjectModel
 
-@synthesize mass, momentOfInertia, position, width, height, velocity, angularVelocity, objType, rotation, rotationM, center, grav;
+@synthesize mass, momentOfInertia, position, width, height, velocity, angularVelocity, objType, rotation, rotationM, center, grav, collided;
 
-
--(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Position:(Vector2D*)p Width:(double)w Height:(double)h Velocity:(Vector2D*)v AngularVelocity:(Matrix2D*)av
+-(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Position:(Vector2D*)p Width:(double)w Height:(double)h Velocity:(Vector2D*)v AngularVelocity:(double)av
 {
 	width = w;
 	height = h;
 	mass = m;
-	//momentOfInertia = i;
 	position = p;
 	velocity = v;
 	angularVelocity = av;
@@ -29,6 +27,7 @@
 	center = CGPointMake(([position x] + width)/2.0, ([position y] + height)/2.0);
 	rotationM = [[Matrix2D matrixWithValues:cos(rotation) and:sin(rotation) and:-sin(rotation) and:cos(rotation)] retain];
 	grav = [[Vector2D vectorWith:0.0 y:0.0] retain];
+	collided = NO;
 	
 	return self;
 }
@@ -37,14 +36,19 @@
 {
 	velocity = v;
 	[velocity retain];
-	//NSLog(@"%f, %f", [velocity x], [velocity y]);
+	[self setPosition: ([position add:[velocity multiply:3]])];
 }
 
--(void)setAngularVelocity:(Matrix2D*)a
+-(void)setAngularVelocity:(double)a
 {
 	angularVelocity = a;
+	[self setRotation: (rotation + (2*angularVelocity))];
 }
 
+-(void)setRotation:(double)r{
+	rotation = r;
+}
+	 
 -(void)setPosition:(Vector2D*)p
 {
 	position = p;
@@ -63,14 +67,13 @@
 	}
 	
 	[self setVelocity: [velocity add:([[g add:[f multiply:(1/mass)]] multiply:(0.016)])]];
-	[self setPosition: ([position add:[velocity multiply:2]])];
 	grav = g;
 }
 
--(void)applyTorque:(Matrix2D*)t
+-(void)applyTorque:(Vector2D*)t
 {
 	//not tested (!)
-	[self setAngularVelocity:[angularVelocity add:[[t multiplyScalar:(1/momentOfInertia)]multiplyScalar:(0.016)]]];
+	//[self setAngularVelocity:[angularVelocity add:[[t multiplyScalar:(1/momentOfInertia)]multiplyScalar:(0.016)]]];
 }
 
 -(BOOL)colliding:(ObjectModel*)shape:(Vector2D*)g{
@@ -78,17 +81,12 @@
 	//shape = a
 	//self = b
 	
-	[shape applyForce:[Vector2D vectorWith:0.0 y:0.0] Gravity:g];
-	[self applyForce:[Vector2D vectorWith:0.0 y:0.0] Gravity:g];
-
-	//NSLog(@"%f, %f", [velocity x], [velocity y]);
-
-	
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	Vector2D *ha;
 	Vector2D *hb;
 	ha = [Vector2D vectorWith:[shape width]/2 y:[shape height]/2];
 	hb = [Vector2D vectorWith:[self width]/2 y:[self height]/2];
-		
+	
 	Vector2D *d;
 	d = [[self position] subtract:[shape position]];
 	
@@ -100,7 +98,6 @@
 	
 	Matrix2D *c;
 	c = [[[shape rotationM]transpose] multiply:[self rotationM]];
-	
 	
 	Vector2D *fa;
 	Vector2D *fb;
@@ -119,24 +116,23 @@
 				   [NSNumber numberWithDouble:fb.x],
 				   [NSNumber numberWithDouble:fb.y], nil];
 	
-	int i,j,pos;
-	double small;
-
+	int i,pos;
+	double small = [[ij objectAtIndex:0] doubleValue];
+	pos = 0;
+	
+	//if any of them are positive then they do not collide
 	for (i=0; i<4; i++) {
 		if ([[ij objectAtIndex:i] doubleValue] > 0) {
-			NSLog(@"%i and %i Not Colliding", [self objType], [shape objType]);
+			//NSLog(@"%i and %i Not Colliding", [self objType], [shape objType]);
 			return false;
 		}
 	}
 	
-	
 	for (i=0; i<4; i++) {
-		for (j=0; j<4; j++) {
-			if ([ij objectAtIndex:i]  >  [ij objectAtIndex:j]  ) 
-			{
-				small = (double)[[ij objectAtIndex:i] doubleValue];
-				pos = i;
-			}
+		if ([[ij objectAtIndex:i] doubleValue] > small) 
+		{
+			small = [[ij objectAtIndex:i] doubleValue];
+			pos = i;
 		}
 	}
 	
@@ -151,6 +147,7 @@
 
 	switch (pos) {
 		case 0:
+			//NSLog(@"0");
 			if (da.x > 0) //rectangle B is on the right hand side of rectangle A in Ra.
 			{
 				//set E1 of A as reference edge
@@ -178,6 +175,8 @@
 			break;
 		
 		case 1:
+			//NSLog(@"1");
+
 			if (da.y > 0) //rectangle B is on top of rectangle A in Ra.
 			{
 				//set E4 of A as reference edge
@@ -204,6 +203,8 @@
 			
 			break;
 		case 2:
+			//NSLog(@"2");
+
 			if (db.x > 0) //rectangle A is on the right hand side of rectangle B in Rb.
 			{
 				//set E1 of B as reference edge
@@ -230,7 +231,9 @@
 			
 			break;
 		case 3:
-			if (db.x > 0) //rectangle A is on the top of rectangle B in Rb.
+			//NSLog(@"3");
+
+			if (db.y > 0) //rectangle A is on the top of rectangle B in Rb.
 			{
 				//set E4 of B as reference edge
 				n = [[self rotationM] col2];
@@ -285,85 +288,177 @@
 	//First Clipping
 	Vector2D *v1c, *v2c; //points after clipping
 	double dist1, dist2;
-	dist1 = -[ns dot:v1] - dneg;
-	dist2 = -[ns dot:v2] - dneg;
+	dist1 = [[ns negate] dot:v1] - dneg;
+	dist2 = [[ns negate] dot:v2] - dneg;
 	
+	if (dist1 > 0 && dist2 > 0) {
+		//the rectangles do not collide WTF!
+		//EXIT THE FUNCTION
+		//NSLog(@"%i and %i Not Colliding", [self objType], [shape objType]);
+		return false;
+	}
+
 	if(dist1 < 0 && dist2 < 0)
 	{
 		v1c = v1;
 		v2c = v2;
-		NSLog(@"%i and %i colliding1", [self objType], [shape objType]);
+		collided = YES;
+		//NSLog(@"%i and %i colliding1", [self objType], [shape objType]);
 	}
 	
 	if (dist1 < 0 && dist2 > 0) {
 		v1c = v1;
 		v2c = [v1 add: [[v2 subtract:v1] multiply:(dist1/(dist1-dist2))]];
-		NSLog(@"%i and %i colliding2", [self objType], [shape objType]);
+		collided = YES;
+		//NSLog(@"%i and %i colliding2", [self objType], [shape objType]);
 	}
 	
 	if (dist1 > 0 && dist2 < 0) {
 		v1c = v2;
 		v2c = [v1 add: [[v2 subtract:v1] multiply:(dist1/(dist1-dist2))]];
-		NSLog(@"%i and %i colliding3", [self objType], [shape objType]);
-
+		collided = YES;
+		//NSLog(@"%i and %i colliding3", [self objType], [shape objType]);
 	}
 
-	if (dist1 > 0 && dist2 > 0) {
-		//the rectangles do not collide WTF!
-		//EXIT THE FUNCTION
-		NSLog(@"%i and %i Not Colliding", [self objType], [shape objType]);
-		return false;
-	}
-	
 	//Second Clipping
 	Vector2D *v1cc, *v2cc;
 	
 	dist1 = [ns dot:v1c] - dpos;
 	dist2 = [ns dot:v2c] - dpos;
 	
+	if (dist1 > 0 && dist2 > 0) {
+		//the rectangles do not collide WTF!
+		//exit the function
+		//NSLog(@"%i and %i Not colliding2", [self objType], [shape objType]);
+		return false;
+	}
+	
 	if (dist1 < 0 && dist2 < 0) {
 		v1cc = v1c;
 		v2cc = v2c;
-		NSLog(@"%i and %i colliding4", [self objType], [shape objType]);
-
+		collided = YES;
+		//NSLog(@"%i and %i colliding4", [self objType], [shape objType]);
 	}
 	
 	if (dist1 < 0 && dist2 > 0) {
 		v1cc = v1c;
 		v2cc = [v1c add: [[v2c subtract:v1c] multiply:(dist1/(dist1-dist2))]];
-		NSLog(@"%i and %i colliding5", [self objType], [shape objType]);
+		collided = YES;
+		//NSLog(@"%i and %i colliding5", [self objType], [shape objType]);
 	}
 	
 	if (dist1 > 0 && dist2 < 0) {
 		v1cc = v2c;
 		v2cc = [v1c add: [[v2c subtract:v1c] multiply:(dist1/(dist1-dist2))]];
-		NSLog(@"%i and %i colliding6", [self objType], [shape objType]);
+		collided = YES;
+		//NSLog(@"%i and %i colliding6", [self objType], [shape objType]);
 	}
-	
-	if (dist1 > 0 && dist2 > 0) {
-		//the rectangles do not collide WTF!
-		//exit the function
-		NSLog(@"%i and %i Not colliding2", [self objType], [shape objType]);
-		return false;
-	}
-	
 	
 	//contact points
 	Vector2D *c1, *c2;
 	double separation;
 	
 	separation = [nf dot:v1cc] - df;
-	c1 = [v1cc subtract:[nf multiply:separation]];
+	
+	if (separation < 0) {
+		c1 = [v1cc subtract:[nf multiply:separation]];
+		[self applyImpulse:shape :c1 :n: separation];
+	}
+	else return false;
 	
 	separation = [nf dot:v2cc] - df;
-	c2 = [v2cc subtract:[nf multiply:separation]];
 	
-	 [self setVelocity:[Vector2D vectorWith:0.0 y:0.0]];
-	 [shape setVelocity:[Vector2D vectorWith:0.0 y:0.0]];
+	if (separation < 0) {
+		c2 = [v2cc subtract:[nf multiply:separation]];
+		
+		[self applyImpulse:shape :c2 :n: separation];
+	}
+	else return false;
 	
+	//[self setVelocity:[Vector2D vectorWith:0.0 y:0.0]];
+	//[shape setVelocity:[Vector2D vectorWith:0.0 y:0.0]];
+	//NSLog(@"%i and %i Colliding", [self objType], [shape objType]);
+	[pool release];
 	return true;
-	 
 }
+		  
+-(void)applyImpulse:(ObjectModel*)shape:(Vector2D*)contact:(Vector2D*)normal :(double)separation{
+	
+	//Impulses at contact points
+	
+	//self b 
+	//shape a
+	
+	Vector2D *tangent;
+	tangent = [normal crossZ:1.0];
+	
+	Vector2D *ra, *rb;
+	Vector2D *ua, *ub;
+	Vector2D *u;
+	
+	//direction vectors of the contact point from the centres of mass
+	ra = [contact subtract:[shape position]];
+	rb = [contact subtract:[self position]];
+	
+	//velocities at contact point
+	ua = [[shape velocity] add:[ra crossZ:-[shape angularVelocity]]];
+	ub = [[self velocity] add:[rb crossZ:-[self angularVelocity]]];
+	
+	//relative velocity of the contact point
+	u = [ub subtract:ua];
+
+	double un, ut;
+	un = [u dot:normal];
+	ut = [u dot:tangent];
+
+	double massn_i, masst_i, massn, masst;
+	
+	massn_i = (1/[self mass]) + (1/[shape mass]) + (([ra dot:ra] - ([ra dot:normal]*[ra dot:normal]))/[shape momentOfInertia]) + (([rb dot:rb] - ([rb dot:normal]*[rb dot:normal]))/[self momentOfInertia]);
+	masst_i = (1/[self mass]) + (1/[shape mass]) + (([ra dot:ra] - ([ra dot:tangent]*[ra dot:tangent]))/[shape momentOfInertia]) + (([rb dot:rb] - ([rb dot:tangent]*[rb dot:tangent]))/[self momentOfInertia]);
+
+	massn = 1/massn_i;
+	masst = 1/masst_i;
+
+	Vector2D *pn;	//Normal impulse
+	double dpt;		//Change of tangential momentum
+	
+	double restitution = 0.1;
+	double tolerance = 0.5;
+	double bias = abs((restitution/1.0)*(tolerance + separation));
+	//NSLog(@"%f", separation);
+	pn = [normal multiply:(massn * (un-bias))];
+//	pn = [normal multiply:(massn * un)];
+	dpt = masst * ut;
+	
+	double friction = 0.80;
+	double ptmax = friction * friction * [pn length];
+	
+	dpt = MAX(-ptmax, MIN(dpt, ptmax));
+	
+	Vector2D *pt;
+	pt = [tangent multiply:dpt];
+	
+	Vector2D *newVa, *newVb;
+	double newWa, newWb;
+	
+	newVa = [[shape velocity] add:[[pn add:pt] multiply:(1/[shape mass])]];
+	newVb = [[self velocity] subtract:[[pn add:pt] multiply:(1/[self mass])]];
+	
+	newWa = [shape angularVelocity] + ([ra cross:[pt add:pn]]/[shape momentOfInertia]);
+	newWb = [self angularVelocity] - ([rb cross:[pt add:pn]]/[self momentOfInertia]);
+	
+	if ([self objType]<7) {
+		[self setVelocity:newVb];
+		[self setAngularVelocity:newWb];
+	}
+	
+	if ([shape objType]<7) {
+		//NSLog(@"%i  %f %f", [shape objType], [newVb x], [newVb y]);
+		[shape setVelocity:newVa];
+		[shape setAngularVelocity:newWa];
+	}
+}
+		  
 
 -(void)stopObject{
 	[self setVelocity:[Vector2D vectorWith:0.0 y:0.0]];
