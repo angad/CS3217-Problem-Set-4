@@ -13,7 +13,7 @@
 
 @synthesize mass, momentOfInertia, position, width, height, velocity, angularVelocity, objType, rotation, rotationM, center, grav, collided;
 
--(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Position:(Vector2D*)p Width:(double)w Height:(double)h Velocity:(Vector2D*)v AngularVelocity:(double)av
+-(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Angle:(double)r Position:(Vector2D*)p Width:(double)w Height:(double)h Velocity:(Vector2D*)v AngularVelocity:(double)av
 {
 	width = w;
 	height = h;
@@ -22,13 +22,12 @@
 	velocity = v;
 	angularVelocity = av;
 	objType = t;
-	rotation = 0;
+	rotation = r;
 	momentOfInertia = (width*width + height*height)/12.0;
 	center = CGPointMake(([position x] + width)/2.0, ([position y] + height)/2.0);
 	rotationM = [[Matrix2D matrixWithValues:cos(rotation) and:sin(rotation) and:-sin(rotation) and:cos(rotation)] retain];
 	grav = [[Vector2D vectorWith:0.0 y:0.0] retain];
 	collided = NO;
-	
 	return self;
 }
 
@@ -36,13 +35,13 @@
 {
 	velocity = v;
 	[velocity retain];
-	[self setPosition: ([position add:[velocity multiply:3]])];
+	[self setPosition: ([position add:[velocity multiply:0.016]])];
 }
 
 -(void)setAngularVelocity:(double)a
 {
 	angularVelocity = a;
-	[self setRotation: (rotation + (2*angularVelocity))];
+	[self setRotation: (rotation + (0.016 * angularVelocity *180/M_PI))];
 }
 
 -(void)setRotation:(double)r{
@@ -58,13 +57,13 @@
 -(void)applyForce:(Vector2D*)f Gravity:(Vector2D*)g
 {	
 	//tested - works
-	if ((g.x<0 && [self grav].x>0) || (g.x>0 && [self grav].x<0)) {
-		[self setVelocity: [Vector2D vectorWith:velocity.x/2 y:velocity.y]];
-	}
-	
-	if((g.y<0 && [self grav].y>0) || (g.y>0 && [self grav].y<0)){
-		[self setVelocity: [Vector2D vectorWith:velocity.x y:velocity.y/2]];
-	}
+//	if ((g.x<0 && [self grav].x>0) || (g.x>0 && [self grav].x<0)) {
+//		[self setVelocity: [Vector2D vectorWith:velocity.x/2 y:velocity.y]];
+//	}
+//	
+//	if((g.y<0 && [self grav].y>0) || (g.y>0 && [self grav].y<0)){
+//		[self setVelocity: [Vector2D vectorWith:velocity.x y:velocity.y/2]];
+//	}
 	
 	[self setVelocity: [velocity add:([[g add:[f multiply:(1/mass)]] multiply:(0.016)])]];
 	grav = g;
@@ -76,10 +75,11 @@
 	//[self setAngularVelocity:[angularVelocity add:[[t multiplyScalar:(1/momentOfInertia)]multiplyScalar:(0.016)]]];
 }
 
--(BOOL)colliding:(ObjectModel*)shape:(Vector2D*)g{
+-(NSArray*)colliding:(ObjectModel*)shape:(Vector2D*)g{
 	
 	//shape = a
 	//self = b
+	NSArray *empty = [NSArray array];
 	
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	Vector2D *ha;
@@ -109,29 +109,29 @@
 	
 	fa = [[[da abs] subtract:ha] subtract:chb];
 	fb = [[[db abs] subtract:hb] subtract:ctha];
-	
-	NSArray *ij = [NSArray arrayWithObjects:
-				   [NSNumber numberWithDouble:fa.x],
-				   [NSNumber numberWithDouble:fa.y],
-				   [NSNumber numberWithDouble:fb.x],
-				   [NSNumber numberWithDouble:fb.y], nil];
+		
+	double ij[4];
+	ij[0] = fa.x;
+	ij[1] = fa.y;
+	ij[2] = fb.x;
+	ij[3] = fb.y;
 	
 	int i,pos;
-	double small = [[ij objectAtIndex:0] doubleValue];
+	double small = ij[0];
 	pos = 0;
 	
 	//if any of them are positive then they do not collide
 	for (i=0; i<4; i++) {
-		if ([[ij objectAtIndex:i] doubleValue] > 0) {
+		if (ij[i] > 0) {
 			//NSLog(@"%i and %i Not Colliding", [self objType], [shape objType]);
-			return false;
+			return empty;
 		}
 	}
 	
 	for (i=0; i<4; i++) {
-		if ([[ij objectAtIndex:i] doubleValue] > small) 
+		if (ij[i] > small) 
 		{
-			small = [[ij objectAtIndex:i] doubleValue];
+			small = ij[i];
 			pos = i;
 		}
 	}
@@ -148,7 +148,7 @@
 	switch (pos) {
 		case 0:
 			//NSLog(@"0");
-			if (da.x > 0) //rectangle B is on the right hand side of rectangle A in Ra.
+			if (da.x >= 0) //rectangle B is on the right hand side of rectangle A in Ra.
 			{
 				//set E1 of A as reference edge
 				n = [[shape rotationM] col1];
@@ -177,7 +177,7 @@
 		case 1:
 			//NSLog(@"1");
 
-			if (da.y > 0) //rectangle B is on top of rectangle A in Ra.
+			if (da.y >= 0) //rectangle B is on top of rectangle A in Ra.
 			{
 				//set E4 of A as reference edge
 				n = [[shape rotationM] col2];
@@ -205,7 +205,7 @@
 		case 2:
 			//NSLog(@"2");
 
-			if (db.x > 0) //rectangle A is on the right hand side of rectangle B in Rb.
+			if (db.x >= 0) //rectangle A is on the right hand side of rectangle B in Rb.
 			{
 				//set E1 of B as reference edge
 				n = [[self rotationM] col1];
@@ -233,7 +233,7 @@
 		case 3:
 			//NSLog(@"3");
 
-			if (db.y > 0) //rectangle A is on the top of rectangle B in Rb.
+			if (db.y >= 0) //rectangle A is on the top of rectangle B in Rb.
 			{
 				//set E4 of B as reference edge
 				n = [[self rotationM] col2];
@@ -295,7 +295,7 @@
 		//the rectangles do not collide WTF!
 		//EXIT THE FUNCTION
 		//NSLog(@"%i and %i Not Colliding", [self objType], [shape objType]);
-		return false;
+		return empty;
 	}
 
 	if(dist1 < 0 && dist2 < 0)
@@ -330,7 +330,7 @@
 		//the rectangles do not collide WTF!
 		//exit the function
 		//NSLog(@"%i and %i Not colliding2", [self objType], [shape objType]);
-		return false;
+		return empty;
 	}
 	
 	if (dist1 < 0 && dist2 < 0) {
@@ -364,22 +364,25 @@
 		c1 = [v1cc subtract:[nf multiply:separation]];
 		[self applyImpulse:shape :c1 :n: separation];
 	}
-	else return false;
+	else return empty;
 	
 	separation = [nf dot:v2cc] - df;
 	
 	if (separation < 0) {
 		c2 = [v2cc subtract:[nf multiply:separation]];
-		
 		[self applyImpulse:shape :c2 :n: separation];
 	}
-	else return false;
+	else return empty;
 	
 	//[self setVelocity:[Vector2D vectorWith:0.0 y:0.0]];
 	//[shape setVelocity:[Vector2D vectorWith:0.0 y:0.0]];
 	//NSLog(@"%i and %i Colliding", [self objType], [shape objType]);
+	
+	
+	NSArray *contacts = [[NSArray alloc] initWithObjects:c1, c2, nil];
 	[pool release];
-	return true;
+
+	return [contacts autorelease];
 }
 		  
 -(void)applyImpulse:(ObjectModel*)shape:(Vector2D*)contact:(Vector2D*)normal :(double)separation{
@@ -422,15 +425,20 @@
 	Vector2D *pn;	//Normal impulse
 	double dpt;		//Change of tangential momentum
 	
-	double restitution = 0.1;
-	double tolerance = 0.5;
-	double bias = abs((restitution/1.0)*(tolerance + separation));
+	double restitution = 0.2;
+	double tolerance = 0.01;
+	double bias = abs((restitution/0.016)*(tolerance + separation));
 	//NSLog(@"%f", separation);
+	
+	if (tolerance < separation) {
+		bias = 0;
+	}
+	
 	pn = [normal multiply:(massn * (un-bias))];
 //	pn = [normal multiply:(massn * un)];
 	dpt = masst * ut;
 	
-	double friction = 0.80;
+	double friction = 0.95;
 	double ptmax = friction * friction * [pn length];
 	
 	dpt = MAX(-ptmax, MIN(dpt, ptmax));

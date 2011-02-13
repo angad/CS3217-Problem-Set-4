@@ -33,14 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	//[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-
-	//[[NSNotificationCenter defaultCenter] addObserver:self
-	//										 selector:@selector(didRotateFromInterfaceOrientation:)
-	//											 name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-	
 	timeStep *ts = [[timeStep alloc]initWithViewController:self];
-	
 	
 	//Accelerometer
 	UIAccelerometer *accel = [UIAccelerometer sharedAccelerometer];
@@ -48,7 +41,7 @@
 	accel.updateInterval = 3.0f/60.0f;
 	
 	//Drawing rectangles
-	CGRect frame = CGRectMake(300, 100, 40, 80);
+	CGRect frame = CGRectMake(100, 40, 300, 120);
 	red = [[UIView alloc] initWithFrame:frame];
 	red.backgroundColor = [UIColor redColor];
 	[frameview addSubview:red];
@@ -89,7 +82,7 @@
 	right.backgroundColor = [UIColor blackColor];
 	[frameview addSubview:right];
 	
-	frame = CGRectMake(5, 990, 750, 10);
+	frame = CGRectMake(5, 990, 760, 10);
 	bottom = [[UIView alloc] initWithFrame:frame];
 	bottom.backgroundColor = [UIColor blackColor];
 	[frameview addSubview:bottom];
@@ -111,11 +104,10 @@
 	[top release];
 }
 
-
 - (void) move:(NSNotification *) notification
 {
 	ObjectModel *t = [notification object];
-	CGAffineTransform transform = CGAffineTransformMakeRotation([t rotation]*(3.14159/180));
+	CGAffineTransform transform = CGAffineTransformMakeRotation([t rotation] * M_PI / 180);
 	switch ([t objType]) {
 		case 1:
 			//red
@@ -150,11 +142,39 @@
 			[pink setCenter:CGPointMake([[t position] x], [[t position] y])];
 			[pink setTransform:transform];
 			break;
+		case 10:
+			[left setCenter:CGPointMake([[t position] x], [[t position] y])];
+			break;
+		case 9:
+			[bottom setCenter:CGPointMake([[t position] x], [[t position] y])];
+			break;
+		case 8:
+			[right setCenter:CGPointMake([[t position] x], [[t position] y])];
+			break;
 		default:
 			break;
 	}
 	[t release];
 }
+
+-(void) showCollision:(NSNotification *) notification
+{
+	if (![notification.object isKindOfClass:[NSArray class]])
+		return;
+	NSArray *contacts = [notification object];
+	for (Vector2D* c in contacts) {
+		UIView *square = [[UIView alloc] initWithFrame:CGRectMake(c.x-2.5, c.y-2.5, 5, 5)];
+		square.backgroundColor = [UIColor blackColor];
+		[frameview addSubview: square];
+		[UIView animateWithDuration:0.5
+							  delay:0
+							options:UIViewAnimationOptionAllowUserInteraction
+						 animations:^{square.alpha = 0;}
+						 completion:^(BOOL finished) {[square removeFromSuperview];}];
+		[square release];
+	}
+}
+
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

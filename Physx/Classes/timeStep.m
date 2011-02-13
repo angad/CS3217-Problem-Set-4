@@ -14,42 +14,40 @@
 //the view updates here
 - (void)accelerometer:(UIAccelerometer *)acel didAccelerate:(UIAcceleration *)aceler 
 {
-	gravity = [[Vector2D alloc] initWith:aceler.x y:-aceler.y];
+	gravity = [[Vector2D alloc] initWith:aceler.x*1000 y:-aceler.y*1000];
 
 	allObjects = [[NSArray arrayWithObjects:redRect,greenRect,blueRect, yellowRect, purpleRect, pinkRect, nil] retain];
 	walls = [[NSArray arrayWithObjects:topRect, rightRect, bottomRect, leftRect, nil] retain];
-	
+	NSArray *contacts;
+
 	int i,j;
 	for (i=0; i<6; i++) {
 		[[allObjects objectAtIndex:i] applyForce:[[Vector2D alloc] initWith:0.0 y:0.0] Gravity:gravity];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"moveObject" object:[allObjects objectAtIndex:i]];
-/*
+		if (i<4) {
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"moveObject" object:[walls objectAtIndex:i]];
+		}
+
 		for (j=0; j<6; j++)
 		{
 			if (j>=4) {
 				if (i!=j) 
 				{
-					[[allObjects objectAtIndex:i] colliding: [allObjects objectAtIndex:j]:gravity];
+					contacts = [[allObjects objectAtIndex:i] colliding:[allObjects objectAtIndex:j]:gravity];
+					[[NSNotificationCenter defaultCenter] postNotificationName:@"showCollision" object:contacts];				
 				}
 			}
 			else if (j<4)
 			{
-				[[walls objectAtIndex:j]colliding:[allObjects objectAtIndex:i]:gravity];
+				contacts = [[walls objectAtIndex:j]colliding:[allObjects objectAtIndex:i]:gravity];
+				[[NSNotificationCenter defaultCenter] postNotificationName:@"showCollision" object:contacts];
+
 				if (i!=j) 
 				{
-					[[allObjects objectAtIndex:i] colliding: [allObjects objectAtIndex:j]:gravity];
+					contacts = [[allObjects objectAtIndex:i] colliding:[allObjects objectAtIndex:j]:gravity];
+					[[NSNotificationCenter defaultCenter] postNotificationName:@"showCollision" object:contacts];				
 				}
 			}
-		}
- */
-		for (j=0; j<[allObjects count]; j++) {
-			if (i!=j) {
-				[[allObjects objectAtIndex:j] colliding:[allObjects objectAtIndex:i]:gravity];
-			}
-		}
-		
-		for (j=0; j<[walls count]; j++) {
-			[[walls objectAtIndex:j]colliding:[allObjects objectAtIndex:i]:gravity];
 		}
 	}
 }
@@ -62,10 +60,15 @@
                                              selector:@selector(move:) 
                                                  name:@"moveObject"
                                                object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:vc
+                                             selector:@selector(showCollision:) 
+                                                 name:@"showCollision"
+                                               object:nil];
 	
 	topRect = [[ObjectModel alloc]initWithType:top 
 										Mass:100.0 
-							 MomentOfInertia:0.0 
+							 MomentOfInertia:0.0
+									   Angle:(double)0.0
 									Position:[[Vector2D alloc] initWith:380.0 y:5.0]
 									 Width:750 
 									Height:10 
@@ -74,7 +77,8 @@
 		   
 	rightRect = [[ObjectModel alloc]initWithType:right 
 									  Mass:100.0 
-						   MomentOfInertia:0.0 
+						   MomentOfInertia:0.0
+										   Angle:(double)0.0
 								  Position:[[Vector2D alloc] initWith:750.0 y:495.0]
 									 Width:10 
 									Height:990 
@@ -84,8 +88,9 @@
 	bottomRect = [[ObjectModel alloc]initWithType:bottom 
 									  Mass:100.0 
 						   MomentOfInertia:0.0 
+											Angle:(double)0.0
 								  Position:[[Vector2D alloc] initWith:380.0 y:990.0]
-									 Width:750 
+									 Width:760 
 									Height:10 
 								  Velocity:[[Vector2D alloc]initWith:0.0 y:0.0]
 						   AngularVelocity:0];
@@ -93,6 +98,7 @@
 	leftRect = [[ObjectModel alloc]initWithType:left 
 									  Mass:100.0 
 						   MomentOfInertia:0.0 
+										  Angle:(double)0.0
 								  Position:[[Vector2D alloc] initWith:5.0 y:495.0]
 									 Width:10 
 									Height:750 
@@ -100,11 +106,12 @@
 						   AngularVelocity:0];
 	
 	redRect = [[ObjectModel alloc] initWithType:red
-										   Mass:2.0 
+										   Mass:5.0 
 								MomentOfInertia:0.0 
-									   Position:[[Vector2D alloc] initWith:300.0 y:100.0 ] 
-										  Width:40.0 
-										 Height:80.0 
+										  Angle:(double)0.0
+									   Position:[[Vector2D alloc] initWith:250.0 y:100.0 ] 
+										  Width:300.0 
+										 Height:120.0 
 									   Velocity:[[Vector2D alloc]initWith:0.0 y:0.0] 
 								AngularVelocity:0];
 
@@ -112,6 +119,7 @@
 	greenRect = [[ObjectModel alloc] initWithType:green
 											 Mass:2.0
 								MomentOfInertia:0.0
+											Angle:(double)0.0
 									   Position:[[Vector2D alloc] initWith:100.0 y:100.0 ] 
 										  Width:40.0 
 										 Height:80.0 
@@ -121,6 +129,7 @@
 	blueRect = [[ObjectModel alloc]initWithType:blue
 										   Mass:2.0 
 								MomentOfInertia:0.0 
+										  Angle:(double)0.0
 									   Position:[[Vector2D alloc] initWith:140.0 y:200.0 ] 
 											 Width:40.0 
 											Height:80.0 
@@ -130,6 +139,7 @@
 	yellowRect = [[ObjectModel alloc]initWithType:yellow
 											 Mass:2.0
 								MomentOfInertia:0.0
+											Angle:(double)0.0
 									   Position:[[Vector2D alloc] initWith:240.0 y:300.0 ] 
 										   Width:40.0 
 										  Height:80.0 
@@ -139,6 +149,7 @@
 	purpleRect = [[ObjectModel alloc] initWithType:purple
 											  Mass:2.0
 								MomentOfInertia:0.0
+											 Angle:(double)0.0
 									   Position:[[Vector2D alloc] initWith:200.0 y:500.0 ] 
 										  Width:40.0 
 										 Height:80.0
@@ -148,6 +159,7 @@
 	pinkRect = [[ObjectModel alloc]initWithType:pink
 										   Mass:2.0 
 								MomentOfInertia:0.0
+										  Angle:(double)0.0
 									   Position:[[Vector2D alloc] initWith:300.0 y:700.0 ] 
 										  Width:40.0 
 										 Height:80.0
@@ -156,5 +168,11 @@
 	return self;
 }
 
+-(void)dealloc{
+	[super dealloc];
+	[allObjects release];
+	[walls release];
+	
+}
 
 @end

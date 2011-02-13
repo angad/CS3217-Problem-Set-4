@@ -46,8 +46,9 @@ typedef enum
 @property (readonly) BOOL collided;
 //friction
 
--(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Position:(Vector2D *)p Width:(double)w Height:(double)h Velocity:(Vector2D *)v AngularVelocity:(double)av;
+-(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Angle:(double)r Position:(Vector2D *)p Width:(double)w Height:(double)h Velocity:(Vector2D *)v AngularVelocity:(double)av;
 -(void)applyForce:(Vector2D *)f Gravity:(Vector2D *)g;
--(BOOL)colliding:(ObjectModel *)shape :(Vector2D *)g;
+-(NSArray*)colliding:(ObjectModel *)shape :(Vector2D *)g;
+
 -(void)applyImpulse:(ObjectModel *)shape :(Vector2D *)contact :(Vector2D *)normal :(double)separation;
 @end
