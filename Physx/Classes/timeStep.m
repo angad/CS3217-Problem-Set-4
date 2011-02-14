@@ -14,7 +14,7 @@
 //the view updates here
 - (void)accelerometer:(UIAccelerometer *)acel didAccelerate:(UIAcceleration *)aceler 
 {
-	gravity = [[Vector2D alloc] initWith:aceler.x*1000 y:-aceler.y*1000];
+	gravity = [[Vector2D alloc] initWith:aceler.x*300 y:-aceler.y*300];
 
 	allObjects = [[NSArray arrayWithObjects:redRect,greenRect,blueRect, yellowRect, purpleRect, pinkRect, nil] retain];
 	walls = [[NSArray arrayWithObjects:topRect, rightRect, bottomRect, leftRect, nil] retain];
@@ -25,7 +25,7 @@
 		[[allObjects objectAtIndex:i] applyForce:[[Vector2D alloc] initWith:0.0 y:0.0] Gravity:gravity];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"moveObject" object:[allObjects objectAtIndex:i]];
 		if (i<4) {
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"moveObject" object:[walls objectAtIndex:i]];
+		//	[[NSNotificationCenter defaultCenter] postNotificationName:@"moveObject" object:[walls objectAtIndex:i]];
 		}
 
 		for (j=0; j<6; j++)
@@ -64,14 +64,17 @@
                                              selector:@selector(showCollision:) 
                                                  name:@"showCollision"
                                                object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:vc
+											selector:@selector(drawWalls:)
+												 name:@"drawWalls" object:nil];
 	
 	topRect = [[ObjectModel alloc]initWithType:top 
 										Mass:100.0 
 							 MomentOfInertia:0.0
 									   Angle:(double)0.0
-									Position:[[Vector2D alloc] initWith:380.0 y:5.0]
-									 Width:750 
-									Height:10 
+									Position:[[Vector2D alloc] initWith:380.0 y:25.0]
+									 Width:1000 
+									Height:30 
 								  Velocity:[[Vector2D alloc]initWith:0.0 y:0.0]
 						   AngularVelocity:0];
 		   
@@ -79,9 +82,9 @@
 									  Mass:100.0 
 						   MomentOfInertia:0.0
 										   Angle:(double)0.0
-								  Position:[[Vector2D alloc] initWith:750.0 y:495.0]
-									 Width:10 
-									Height:990 
+								  Position:[[Vector2D alloc] initWith:740.0 y:495.0]
+									 Width:30 
+									Height:1000 
 								  Velocity:[[Vector2D alloc]initWith:0.0 y:0.0]
 						   AngularVelocity:0 ];
 				  
@@ -89,9 +92,9 @@
 									  Mass:100.0 
 						   MomentOfInertia:0.0 
 											Angle:(double)0.0
-								  Position:[[Vector2D alloc] initWith:380.0 y:990.0]
-									 Width:760 
-									Height:10 
+								  Position:[[Vector2D alloc] initWith:380.0 y:980.0]
+									 Width:1000 
+									Height:30 
 								  Velocity:[[Vector2D alloc]initWith:0.0 y:0.0]
 						   AngularVelocity:0];
 	
@@ -99,11 +102,18 @@
 									  Mass:100.0 
 						   MomentOfInertia:0.0 
 										  Angle:(double)0.0
-								  Position:[[Vector2D alloc] initWith:5.0 y:495.0]
-									 Width:10 
-									Height:750 
+								  Position:[[Vector2D alloc] initWith:15.0 y:500.0]
+									 Width:30 
+									Height:1000 
 								  Velocity:[[Vector2D alloc]initWith:0.0 y:0.0]
 						   AngularVelocity:0];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"drawWalls" object:topRect];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"drawWalls" object:rightRect];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"drawWalls" object:bottomRect];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"drawWalls" object:leftRect];
+
+
 	
 	redRect = [[ObjectModel alloc] initWithType:red
 										   Mass:5.0 
@@ -172,7 +182,6 @@
 	[super dealloc];
 	[allObjects release];
 	[walls release];
-	
 }
 
 @end

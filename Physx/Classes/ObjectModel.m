@@ -15,6 +15,8 @@
 
 -(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Angle:(double)r Position:(Vector2D*)p Width:(double)w Height:(double)h Velocity:(Vector2D*)v AngularVelocity:(double)av
 {
+	dt = 0.016;
+	//initializes ObjectModel
 	width = w;
 	height = h;
 	mass = m;
@@ -33,19 +35,22 @@
 
 -(void)setVelocity:(Vector2D*)v
 {
+	//sets Velocity
 	velocity = v;
 	[velocity retain];
-	[self setPosition: ([position add:[velocity multiply:0.016]])];
+	[self setPosition: ([position add:[velocity multiply:dt]])];
 }
 
 -(void)setAngularVelocity:(double)a
 {
 	angularVelocity = a;
-	[self setRotation: (rotation + (0.016 * angularVelocity *180/M_PI))];
+	[self setRotation: (rotation + (dt * angularVelocity *180/M_PI))];
 }
 
 -(void)setRotation:(double)r{
 	rotation = r;
+	r = r*M_PI/180;
+	rotationM = [[Matrix2D matrixWithValues:cos(r) and:sin(r) and:-sin(r) and:cos(r)] retain];
 }
 	 
 -(void)setPosition:(Vector2D*)p
@@ -65,7 +70,7 @@
 //		[self setVelocity: [Vector2D vectorWith:velocity.x y:velocity.y/2]];
 //	}
 	
-	[self setVelocity: [velocity add:([[g add:[f multiply:(1/mass)]] multiply:(0.016)])]];
+	[self setVelocity: [velocity add:([[g add:[f multiply:(1/mass)]] multiply:(dt)])]];
 	grav = g;
 }
 
@@ -76,6 +81,7 @@
 }
 
 -(NSArray*)colliding:(ObjectModel*)shape:(Vector2D*)g{
+	//Checks for collisions between self and shape. It returns the array of colliding points.	
 	
 	//shape = a
 	//self = b
@@ -116,9 +122,16 @@
 	ij[2] = fb.x;
 	ij[3] = fb.y;
 	
-	int i,pos;
-	double small = ij[0];
+	double modified[4];
+	modified[0] = fa.x - 0.01*(ha.x);
+	modified[1] = fa.y - 0.01*(ha.y);
+	modified[2] = fb.x - 0.01*(hb.x);
+	modified[3] = fb.y - 0.01*(hb.y);
+	
+	int i,pos, flag;
+	double small = modified[0];
 	pos = 0;
+	flag = 0;
 	
 	//if any of them are positive then they do not collide
 	for (i=0; i<4; i++) {
@@ -128,14 +141,26 @@
 		}
 	}
 	
+	//favoring the larger edge for reference edge
 	for (i=0; i<4; i++) {
-		if (ij[i] > small) 
-		{
-			small = ij[i];
+		if (modified[i] > (0.95)*ij[i]) {
+			small = modified[i];
 			pos = i;
+			flag = 1;
 		}
 	}
 	
+	if (flag == 0) {
+		small = ij[0];
+		pos = 0;	
+		for (i=0; i<4; i++) {
+			if (ij[i] > small) 
+			{
+				small = ij[i];
+				pos = i;
+			}
+		}
+	}
 	//NSLog(@"%f",small);
 
 	Vector2D *n;
@@ -425,9 +450,9 @@
 	Vector2D *pn;	//Normal impulse
 	double dpt;		//Change of tangential momentum
 	
-	double restitution = 0.2;
+	double restitution = 0.15;
 	double tolerance = 0.01;
-	double bias = abs((restitution/0.016)*(tolerance + separation));
+	double bias = abs((restitution/dt)*(tolerance + separation));
 	//NSLog(@"%f", separation);
 	
 	if (tolerance < separation) {
@@ -466,7 +491,14 @@
 		[shape setAngularVelocity:newWa];
 	}
 }
-		  
+
+-(void)dealloc{
+	[super dealloc];
+	[rotationM release];
+	[position release];
+	[velocity release];
+	[grav release];
+}
 
 -(void)stopObject{
 	[self setVelocity:[Vector2D vectorWith:0.0 y:0.0]];

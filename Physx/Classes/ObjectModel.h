@@ -10,9 +10,9 @@
 #import "Vector2D.h"
 #import "Matrix2D.h"
 
-#define DELTA 1/60
-
 @interface ObjectModel : NSObject {
+	
+	double dt;
 }
 
 typedef enum
@@ -49,6 +49,7 @@ typedef enum
 -(id)initWithType:(ObjectType)t Mass:(double)m MomentOfInertia:(double)i Angle:(double)r Position:(Vector2D *)p Width:(double)w Height:(double)h Velocity:(Vector2D *)v AngularVelocity:(double)av;
 -(void)applyForce:(Vector2D *)f Gravity:(Vector2D *)g;
 -(NSArray*)colliding:(ObjectModel *)shape :(Vector2D *)g;
-
+-(void)setRotation:(double)r;
+-(void)setPosition:(Vector2D *)p;
 -(void)applyImpulse:(ObjectModel *)shape :(Vector2D *)contact :(Vector2D *)normal :(double)separation;
 @end

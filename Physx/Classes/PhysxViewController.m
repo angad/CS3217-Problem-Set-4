@@ -38,7 +38,7 @@
 	//Accelerometer
 	UIAccelerometer *accel = [UIAccelerometer sharedAccelerometer];
 	accel.delegate = ts;
-	accel.updateInterval = 3.0f/60.0f;
+	accel.updateInterval = 4.0f/60.0f;
 	
 	//Drawing rectangles
 	CGRect frame = CGRectMake(100, 40, 300, 120);
@@ -72,22 +72,22 @@
 	[frameview addSubview:pink];
 	
 	//the big invincible masses
-	frame = CGRectMake(5, 5, 750, 10);
+	frame = CGRectMake(5, 5, 750, 30);
 	top = [[UIView alloc] initWithFrame:frame];
 	top.backgroundColor = [UIColor blackColor];
 	[frameview addSubview:top];
 	
-	frame = CGRectMake(750, 5, 10, 990);
+	frame = CGRectMake(730, 5, 30, 990);
 	right = [[UIView alloc] initWithFrame:frame];
 	right.backgroundColor = [UIColor blackColor];
 	[frameview addSubview:right];
 	
-	frame = CGRectMake(5, 990, 760, 10);
+	frame = CGRectMake(5, 970, 760, 30);
 	bottom = [[UIView alloc] initWithFrame:frame];
 	bottom.backgroundColor = [UIColor blackColor];
 	[frameview addSubview:bottom];
 	
-	frame = CGRectMake(5, 5, 10, 990);
+	frame = CGRectMake(5, 5, 30, 990);
 	left = [[UIView alloc] initWithFrame:frame];
 	left.backgroundColor = [UIColor blackColor];
 	[frameview addSubview:left];
@@ -106,6 +106,10 @@
 
 - (void) move:(NSNotification *) notification
 {
+	
+	//Receives Notification from timeStep
+	//Gets the Object Model and identifies its type
+	//Makes changes to the UIView Objects
 	ObjectModel *t = [notification object];
 	CGAffineTransform transform = CGAffineTransformMakeRotation([t rotation] * M_PI / 180);
 	switch ([t objType]) {
@@ -157,8 +161,35 @@
 	[t release];
 }
 
+-(void)drawWalls:(NSNotification *)notification
+{
+	//Draws the walls upon initialization
+	
+	ObjectModel *t = [notification object];
+	switch ([t objType]) {
+		case 7:
+			//top
+			[top setCenter:CGPointMake([[t position] x], [[t position] y]) ];
+			break;
+		case 8:
+			//right
+			[right setCenter:CGPointMake([[t position] x], [[t position] y]) ];
+			break;
+		case 9:
+			//bottom
+			[bottom setCenter:CGPointMake([[t position] x], [[t position] y]) ];
+			break;
+		case 10:
+			//left
+			[left setCenter:CGPointMake([[t position] x], [[t position] y]) ];
+			break;
+	}
+}
+
+
 -(void) showCollision:(NSNotification *) notification
 {
+	//shows the points of collisions
 	if (![notification.object isKindOfClass:[NSArray class]])
 		return;
 	NSArray *contacts = [notification object];
